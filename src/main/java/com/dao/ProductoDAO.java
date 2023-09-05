@@ -21,8 +21,8 @@ public class ProductoDAO {
 	}
 
 	public void guardar(Producto producto) {
-		try (con) {
-			final PreparedStatement decla = con.prepareStatement(
+		try  {
+			PreparedStatement decla = con.prepareStatement(
 					"INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, CANTIDAD) VALUES( ?, ?, ? )",
 					Statement.RETURN_GENERATED_KEYS);
 
@@ -30,7 +30,7 @@ public class ProductoDAO {
 				instruccion(producto, decla);
 			}
 
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}

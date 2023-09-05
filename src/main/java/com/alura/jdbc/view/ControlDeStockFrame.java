@@ -230,12 +230,8 @@ public class ControlDeStockFrame extends JFrame {
 
     private void cargarTabla() {
             var productos = this.productoController.listar();
-            try {
                 productos.forEach(producto -> modelo.addRow(new Object[] { producto.getId(), producto.getNombre(),
                         producto.getDescripcion(), producto.getCantidad() }));
-            } catch (Exception e) {
-                throw e;
-            }
     }
 
     private void guardar() {
