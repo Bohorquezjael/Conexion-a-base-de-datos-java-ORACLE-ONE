@@ -15,6 +15,7 @@ import com.dao.ProductoDAO;
 
 public class ProductoController {
 	private ProductoDAO productoDAO;
+
 	/**
 	 * @param productoDAO
 	 */
@@ -54,36 +55,12 @@ public class ProductoController {
 			}
 		}
 	}
-
-	public List<Map<String, String>> listar() throws SQLException {
-		final Connection con = new ConnectionFactory().recuperaConexion();
-		// try-with-resources - Java 7+
-		try (con) {
-			final PreparedStatement statement = con
-					.prepareStatement("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO");
-			try (statement) {
-				statement.execute();
-				final ResultSet resu = statement.getResultSet();
-				try (resu) {
-					List<Map<String, String>> lista = new ArrayList<>();
-					while (resu.next()) {
-						Map<String, String> fila = new HashMap<>();
-						fila.put("ID", String.valueOf(resu.getInt("ID")));
-						fila.put("NOMBRE", resu.getString("NOMBRE"));
-						fila.put("DESCRIPCION", resu.getString("DESCRIPCION"));
-						fila.put("CANTIDAD", String.valueOf(resu.getInt("CANTIDAD")));
-						// nombre de columna o numero
-
-						lista.add(fila);
-					}
-					return lista;
-				}
-			}
-		}
+	public List<Producto> listar() {
+		return productoDAO.listar(); 
+		
 	}
 
-	public void guardar(Producto producto) throws SQLException {
-		ProductoDAO persistenciaProducto = new ProductoDAO(new ConnectionFactory().recuperaConexion());
-		persistenciaProducto.guardar(producto);
+	public void guardar(Producto producto) {
+		productoDAO.guardar(producto);
 	}
 }

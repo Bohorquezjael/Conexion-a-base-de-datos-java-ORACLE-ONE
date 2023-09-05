@@ -1,6 +1,7 @@
 package com.alura.jdbc.modelo;
 
 public class Producto {
+
     private int id;
     private String nombre;
     private String descripcion;
@@ -48,7 +49,13 @@ public class Producto {
         return cantidad;
     }
 
-    public Producto(String nombre, String descripcion, Integer cantidad) {
+    public Producto(int id, String nombre, String descripcion, int cantidad) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.cantidad = cantidad;
+    }
+     public Producto(String nombre, String descripcion, Integer cantidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
@@ -59,11 +66,11 @@ public class Producto {
     }
 
     @Override
-    public String toString(){
-        return String.format("{id: %s, nombre: %s, descripcion: %s ,cantidad: %d}", 
-        this.id,
-        this.nombre, 
-        this.descripcion,
-        this.cantidad);
+    public String toString() {
+        return String.format("{id: %s, nombre: %s, descripcion: %s ,cantidad: %d}",
+                this.id,
+                this.nombre,
+                this.descripcion,
+                this.cantidad);
     }
 }
