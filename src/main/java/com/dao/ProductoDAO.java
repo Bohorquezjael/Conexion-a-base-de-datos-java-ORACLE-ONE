@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.alura.jdbc.factory.ConnectionFactory;
 import com.alura.jdbc.modelo.Producto;
@@ -67,6 +65,24 @@ public class ProductoDAO {
 					}
 					return lista;
 				}
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public int eliminar(Integer id) {
+		final Connection con = new ConnectionFactory().recuperaConexion();
+		try (con) {
+			final PreparedStatement decla = con.prepareStatement("DELETE FROM PRODUCTO WHERE ID= ?");
+			try (decla) {
+				decla.setInt(1, id);
+				decla.execute();
+
+				int nModificados = decla.getUpdateCount();
+				System.out.println(
+						"Se ha eliminado " + nModificados + " items");
+				return nModificados;
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

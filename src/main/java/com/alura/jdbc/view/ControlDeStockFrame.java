@@ -214,13 +214,7 @@ public class ControlDeStockFrame extends JFrame {
                 .ifPresentOrElse(fila -> {
                     Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
                     int nModifica;
-                    try {
                         nModifica = this.productoController.eliminar(id);
-                    } catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        throw new RuntimeException(e);
-                    }
-
                     modelo.removeRow(tabla.getSelectedRow());
 
                     JOptionPane.showMessageDialog(this, String.format("%d Item eliminado con éxito!", nModifica));
