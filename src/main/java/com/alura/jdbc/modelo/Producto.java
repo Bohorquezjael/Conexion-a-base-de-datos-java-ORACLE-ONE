@@ -62,7 +62,7 @@ public class Producto {
         this.descripcion = descripcion;
         this.cantidad = cantidad;
     }
-     public Producto(String nombre, String descripcion, Integer cantidad) {
+    public Producto(String nombre, String descripcion, Integer cantidad) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
