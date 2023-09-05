@@ -3,6 +3,13 @@ package com.alura.jdbc.modelo;
 public class Producto {
 
     private int id;
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
     private String nombre;
     private String descripcion;
     private int cantidad;

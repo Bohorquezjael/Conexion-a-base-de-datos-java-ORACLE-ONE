@@ -229,18 +229,13 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void cargarTabla() {
-        try {
             var productos = this.productoController.listar();
             try {
-                productos.forEach(producto -> modelo.addRow(new Object[] { producto.get("ID"), producto.get("NOMBRE"),
-                        producto.get("DESCRIPCION"), producto.get("CANTIDAD") }));
+                productos.forEach(producto -> modelo.addRow(new Object[] { producto.getId(), producto.getNombre(),
+                        producto.getDescripcion(), producto.getCantidad() }));
             } catch (Exception e) {
                 throw e;
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     private void guardar() {
