@@ -89,16 +89,16 @@ public class ProductoDAO {
 		}
 	}
 
-	public int modificar(Producto producto) throws SQLException {
+	public int modificar(String nombre, String descripcion, Integer cantidad, Integer id) throws SQLException {
 		final Connection con = new ConnectionFactory().recuperaConexion();
 		try (con) {
 			final PreparedStatement decla = con
 					.prepareStatement("UPDATE PRODUCTO SET NOMBRE = ?, DESCRIPCION = ?, CANTIDAD = ? WHERE ID = ?;");
 			try (decla) {
-				decla.setString(1, producto.getNombre());
-				decla.setString(2, producto.getDescripcion());
-				decla.setInt(3, producto.getCantidad());
-				decla.setInt(4, producto.getId());
+				decla.setString(1, nombre);
+				decla.setString(2, descripcion);
+				decla.setInt(3, cantidad);
+				decla.setInt(4, id);
 				decla.execute();
 				int nModificados = decla.getUpdateCount();
 				return nModificados;

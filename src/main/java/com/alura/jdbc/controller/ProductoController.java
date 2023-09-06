@@ -19,8 +19,8 @@ public class ProductoController {
 		this.productoDAO = productoDAO = new ProductoDAO(new ConnectionFactory().recuperaConexion());
 	}
 
-	public int modificar(Producto producto) throws SQLException {
-		return productoDAO.modificar();
+	public int modificar(String nombre, String descripcion, Integer cantidad, Integer id) throws SQLException {
+		return productoDAO.modificar(nombre, descripcion, cantidad, id);
 	}
 
 	public int eliminar(Integer id) {
