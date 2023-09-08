@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.alura.jdbc.factory.ConnectionFactory;
+import com.alura.jdbc.modelo.Categoria;
 import com.alura.jdbc.modelo.Producto;
 import com.dao.ProductoDAO;
 
@@ -27,6 +28,9 @@ public class ProductoController {
 	public List<Producto> listar() {
 		return productoDAO.listar(); 
 		
+	}
+	public List<Producto> listar(Categoria categoria){
+		return productoDAO.listar(categoria.getId());
 	}
 
 	public void guardar(Producto producto, Integer categoriaId) {

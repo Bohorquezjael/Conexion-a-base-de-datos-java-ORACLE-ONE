@@ -49,9 +49,9 @@ public class ProductoDAO {
 	}
 
 	public List<Producto> listar() {
-		final Connection con = new ConnectionFactory().recuperaConexion();
+		// final Connection con = new ConnectionFactory().recuperaConexion();
 		// try-with-resources - Java 7+
-		try (con) {
+		try {
 			final PreparedStatement statement = con
 					.prepareStatement("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO");
 			try (statement) {
@@ -105,6 +105,31 @@ public class ProductoDAO {
 				return nModificados;
 			}
 		}catch(SQLException e){
+			throw new RuntimeException(e);
+		}
+	}
+
+	public List<Producto> listar(Integer categoriaId) {
+		// final Connection con = new ConnectionFactory().recuperaConexion();
+		// try-with-resources - Java 7+
+		try {
+			final PreparedStatement statement = con
+					.prepareStatement("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO WHERE CATEGORIA_ID = ?");
+			try (statement) {
+				statement.setInt(1, categoriaId);
+				statement.execute();
+				final ResultSet resu = statement.getResultSet();
+				try (resu) {
+					List<Producto> lista = new ArrayList<>();
+					while (resu.next()) {
+						Producto fila =new Producto(resu.getInt("ID"), resu.getString("NOMBRE"), resu.getString("DESCRIPCION"),  resu.getInt("CANTIDAD"));
+
+						lista.add(fila);
+					}
+					return lista;
+				}
+			}
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
