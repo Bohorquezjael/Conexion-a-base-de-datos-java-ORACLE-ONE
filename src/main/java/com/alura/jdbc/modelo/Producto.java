@@ -86,4 +86,8 @@ public class Producto {
         this.categoriaId = categoriaId;
 
     }
+
+    public int getCategoriaId() {
+        return this.categoriaId;
+    }
 }

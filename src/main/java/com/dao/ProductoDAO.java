@@ -38,6 +38,7 @@ public class ProductoDAO {
 		decla.setString(1, producto.getNombre());
 		decla.setString(2, producto.getDescripcion());
 		decla.setInt(3, producto.getCantidad());
+		decla.setInt(4, producto.getCategoriaId());
 		decla.execute();
 		ResultSet resultado = decla.getGeneratedKeys();
 
