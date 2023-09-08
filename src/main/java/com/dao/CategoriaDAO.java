@@ -38,5 +38,29 @@ public class CategoriaDAO {
         }
         return result;
     }
+
+    public List<Categoria> listarConProductos() {
+
+ List<Categoria> result = new ArrayList<>();
+        try {
+            var querySelect = "SELECT C.ID, P.NOMBRE, P.DESCRIPCION, P.CANTIDAD ,C.NOMBRE FROM CATEGORIAS C INNER JOIN PRODUCTO P ON C.ID = P.CATEGORIA_ID";
+            System.out.println(querySelect);
+            final PreparedStatement decla = con.prepareStatement(querySelect);
+            try(decla){
+            final ResultSet resu = decla.executeQuery();
+            try(resu){
+                while (resu.next()) {
+                    var categoria = new Categoria(resu.getInt("ID"),
+                    resu.getString("NOMBRE"));
+                    
+                    result.add(categoria);
+                }
+            }
+        }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;   
+    }
     
 }
