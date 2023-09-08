@@ -113,8 +113,10 @@ public class ProductoDAO {
 		// final Connection con = new ConnectionFactory().recuperaConexion();
 		// try-with-resources - Java 7+
 		try {
+			var querySelect = "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO WHERE CATEGORIA_ID = ?";
+			System.out.println(querySelect);
 			final PreparedStatement statement = con
-					.prepareStatement("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO WHERE CATEGORIA_ID = ?");
+					.prepareStatement(querySelect);
 			try (statement) {
 				statement.setInt(1, categoriaId);
 				statement.execute();

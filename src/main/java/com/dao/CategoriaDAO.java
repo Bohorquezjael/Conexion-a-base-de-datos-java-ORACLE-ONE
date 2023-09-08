@@ -19,7 +19,9 @@ public class CategoriaDAO {
     public List<Categoria> listar() {
         List<Categoria> result = new ArrayList<>();
         try {
-            final PreparedStatement decla = con.prepareStatement("SELECT ID, NOMBRE FROM CATEGORIAS");
+            var querySelect = "SELECT ID, NOMBRE FROM CATEGORIAS";
+            System.out.println(querySelect);
+            final PreparedStatement decla = con.prepareStatement(querySelect);
             try(decla){
             final ResultSet resu = decla.executeQuery();
             try(resu){
