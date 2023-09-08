@@ -45,21 +45,26 @@ public class CategoriaDAO {
         List<Categoria> result = new ArrayList<>();
         try {
             var querySelect = "SELECT C.ID, P.NOMBRE, P.DESCRIPCION, P.CANTIDAD ,C.NOMBRE FROM CATEGORIAS C INNER JOIN PRODUCTO P ON C.ID = P.CATEGORIA_ID";
+
             System.out.println(querySelect);
+
             final PreparedStatement decla = con.prepareStatement(querySelect);
+
             try (decla) {
                 final ResultSet resu = decla.executeQuery();
+
                 try (resu) {
                     while (resu.next()) {
-                        Integer id = resu.getInt("ID");
+                        int id = resu.getInt("ID");
                         String nombre = resu.getString("NOMBRE");
-                        var categoria = result.stream().filter(cat -> cat.getId()).equals(categoriaId).finAny()
-                                .orElseGet(() -> {
+
+                        var categoria = result.stream().filter(cat -> cat.getId().equals(id)).findAny().orElseGet(() -> 
+                        { Categoria cat = new Categoria(id, nombre);
+                                    result.add(cat);
+                                    return cat;
                                 });
 
-                        new Categoria(id, nombre);
-
-                        result.add(categoria);
+                        
                     }
                 }
             }
