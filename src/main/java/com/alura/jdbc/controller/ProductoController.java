@@ -28,8 +28,4 @@ public class ProductoController {
 		return productoDAO.listar(); 
 		
 	}
-
-	public void guardar(Producto producto) {
-		productoDAO.guardar(producto);
-	}
 }

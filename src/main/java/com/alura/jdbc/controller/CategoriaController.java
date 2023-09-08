@@ -5,13 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.alura.jdbc.factory.ConnectionFactory;
+import com.alura.jdbc.modelo.Categoria;
+import com.dao.CategoriaDAO;
+
 import java.sql.Statement;
 
 public class CategoriaController {
+    private CategoriaDAO categoriaDAO;
 
-	public List<?> listar(){
+    public CategoriaController(){
+        var factory = new ConnectionFactory();
+        this.categoriaDAO = new CategoriaDAO(factory.recuperaConexion());
+    }
+
+	public List<Categoria> listar(){
 		// TODO
-		return new ArrayList<>();
+		return categoriaDAO.listar();
 	}
 
     public List<?> cargaReporte() {
