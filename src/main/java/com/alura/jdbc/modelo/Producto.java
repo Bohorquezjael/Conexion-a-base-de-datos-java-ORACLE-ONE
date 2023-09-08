@@ -13,6 +13,7 @@ public class Producto {
     private String nombre;
     private String descripcion;
     private int cantidad;
+    private Integer categoriaId;
 
     /**
      * @param nombre the nombre to set
@@ -79,5 +80,10 @@ public class Producto {
                 this.nombre,
                 this.descripcion,
                 this.cantidad);
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
+
     }
 }

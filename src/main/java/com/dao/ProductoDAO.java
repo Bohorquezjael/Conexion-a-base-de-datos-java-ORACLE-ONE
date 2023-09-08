@@ -21,7 +21,7 @@ public class ProductoDAO {
 	public void guardar(Producto producto) {
 		try  {
 			PreparedStatement decla = con.prepareStatement(
-					"INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, CANTIDAD) VALUES( ?, ?, ? )",
+					"INSERT INTO PRODUCTO(NOMBRE, DESCRIPCION, CANTIDAD, CATEGORIA_ID) VALUES( ?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 
 			try (decla) {
