@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alura.jdbc.modelo.Categoria;
+import com.alura.jdbc.modelo.Producto;
 
 public class CategoriaDAO {
 
@@ -44,7 +45,7 @@ public class CategoriaDAO {
 
         List<Categoria> result = new ArrayList<>();
         try {
-            var querySelect = "SELECT C.ID, P.NOMBRE, P.DESCRIPCION, P.CANTIDAD ,C.NOMBRE FROM CATEGORIAS C INNER JOIN PRODUCTO P ON C.ID = P.CATEGORIA_ID";
+            var querySelect = "SELECT C.ID ,C.NOMBRE, P.ID, P.NOMBRE, P.CANTIDAD FROM CATEGORIAS C INNER JOIN PRODUCTO P ON C.ID = P.CATEGORIA_ID";
 
             System.out.println(querySelect);
 
@@ -55,16 +56,19 @@ public class CategoriaDAO {
 
                 try (resu) {
                     while (resu.next()) {
-                        int id = resu.getInt("ID");
-                        String nombre = resu.getString("NOMBRE");
+                        int id = resu.getInt("C.ID");
+                        String nombre = resu.getString("C.NOMBRE");
 
                         var categoria = result.stream().filter(cat -> cat.getId().equals(id)).findAny().orElseGet(() -> 
                         { Categoria cat = new Categoria(id, nombre);
                                     result.add(cat);
                                     return cat;
                                 });
-
-                        
+                                Producto producto = new Producto(
+                                resu.getInt("P.ID"),
+                                resu.getString("P.NOMBRE"),
+                                resu.getInt("P.CANTIDAD"));
+                        categoria.agregar(producto);
                     }
                 }
             }
