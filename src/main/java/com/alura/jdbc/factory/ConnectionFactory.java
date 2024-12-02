@@ -7,23 +7,25 @@ import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-public class ConnectionFactory {
-	private DataSource dataSource;
+import static com.util.ApplicationConfigLoader.loadConfig;
 
-	public ConnectionFactory() {
-		var pooledDataSource = new ComboPooledDataSource();
-		pooledDataSource.setJdbcUrl("jdbc:mysql://localhost/control_de_stock?useTimezone=true&serverTimeZone=UTC");
-		pooledDataSource.setUser("root");
-		pooledDataSource.setPassword("1912055897154");
-		pooledDataSource.setMaxPoolSize(50);
-		this.dataSource = pooledDataSource;
+public class ConnectionFactory {
+	private final DataSource dataSource;
+
+	private DataSource setDataSourceProperties(){
+		var dS = new ComboPooledDataSource();
+		dS.setJdbcUrl(loadConfig().getProperty("db.url"));
+		dS.setUser(loadConfig().getProperty("db.username"));
+		dS.setPassword(loadConfig().getProperty("db.password"));
+		dS.setMaxPoolSize(Integer.parseInt(loadConfig().getProperty("dataSource.maxPool")));
+		return dS;
 	}
 
-	public Connection recuperaConexion() {
-		try {
-			return this.dataSource.getConnection();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+	public ConnectionFactory() {
+		this.dataSource = setDataSourceProperties();
+	}
+
+	public Connection getConnection() throws SQLException {
+		return this.dataSource.getConnection();
 	}
 }
